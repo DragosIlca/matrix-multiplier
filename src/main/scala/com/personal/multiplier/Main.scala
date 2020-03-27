@@ -12,14 +12,8 @@ object Main {
     val (matrix1, matrix2) = readInputFile(args(0))
     validateInputMatrices(matrix1, matrix2)
 
-    val result = multiplyMatrices(matrix1, matrix2)
+    val result = Calculator.multiplyMatrices(matrix1, matrix2)
     logger.info(s"The result of multiplication is: ${result.toList}")
-  }
-
-  private def multiplyMatrices(matrix1: Array[Array[Int]], matrix2 : Array[Array[Int]]): Array[Int] = {
-    matrix1.indices.map(lineIndex =>
-      Calculator.multiplyLines(matrix1(lineIndex), matrix2.map(_(lineIndex)))
-    ).toArray
   }
 
   private def readInputFile(path: String): (Array[Array[Int]], Array[Array[Int]]) = {
