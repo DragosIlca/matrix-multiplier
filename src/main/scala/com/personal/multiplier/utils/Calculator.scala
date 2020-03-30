@@ -1,15 +1,25 @@
 package com.personal.multiplier.utils
 
+import scala.concurrent.{ExecutionContext, Future}
+
 object Calculator {
-  def multiplyMatrices(matrix1: Array[Array[Int]], matrix2 : Array[Array[Int]]): Array[Array[Int]] = {
-    matrix1.map(line => {
-      matrix2.map(column => {
-        multiplyLines(line, column)
-      })
+  def multiplyMatrices(
+    matrix1: List[List[Int]],
+    matrix2: List[List[Int]]
+  )(implicit executionContext: ExecutionContext): Future[List[List[Int]]] = {
+
+    val matrix2Columns = matrix2.head.indices.map(columnIndex => {
+      matrix2.map(_(columnIndex))
+    }).toList
+
+    Future.traverse(matrix1) (line => {
+      Future.traverse(matrix2Columns)(column =>
+        Future(multiplyLines(line, column))
+      )
     })
   }
 
-  def multiplyLines(line: Array[Int], column: Array[Int]): Int = {
+  def multiplyLines(line: List[Int], column: List[Int]): Int = {
     line.indices.foldLeft(0)((result, index) => result + line(index) * column(index))
   }
 }
