@@ -1,10 +1,12 @@
 package com.personal.multiplier.utils
 
 object Calculator {
-  def multiplyMatrices(matrix1: Array[Array[Int]], matrix2 : Array[Array[Int]]): Array[Int] = {
-    matrix1.indices.map(lineIndex =>
-      multiplyLines(matrix1(lineIndex), matrix2.map(_(lineIndex)))
-    ).toArray
+  def multiplyMatrices(matrix1: Array[Array[Int]], matrix2 : Array[Array[Int]]): Array[Array[Int]] = {
+    matrix1.map(line => {
+      matrix2.map(column => {
+        multiplyLines(line, column)
+      })
+    })
   }
 
   def multiplyLines(line: Array[Int], column: Array[Int]): Int = {
