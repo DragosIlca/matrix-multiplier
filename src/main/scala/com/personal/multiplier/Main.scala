@@ -29,7 +29,7 @@ object Main {
           Array.empty[Int]
       }.filter(_.nonEmpty).toArray
 
-      val (matrix1, matrix2) = inputNumbers.splitAt(inputNumbers.head.length - 1)
+      val (matrix1, matrix2) = inputNumbers.splitAt(inputNumbers.head.length)
 
       (matrix1, matrix2)
     }.fold(
@@ -38,10 +38,7 @@ object Main {
         System.exit(-1)
         null
       },
-      v => {
-        logger.debug(s"readInputFile() - Returning matrices: ${v._1.map(_.toList).toList} & ${v._2.map(_.toList).toList}")
-        v
-      }
+      v => v
     )
   }
 
